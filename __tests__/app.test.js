@@ -39,7 +39,7 @@ describe('recipe-lab routes', () => {
       });
   });
 
-  it('gets all recipes', async() => {
+  it('returns all recipes', async() => {
     const recipes = await Promise.all([
       { name: 'cookies', directions: [] },
       { name: 'cake', directions: [] },
@@ -55,7 +55,7 @@ describe('recipe-lab routes', () => {
       });
   });
 
-  it('gets a recipe by id', async() => {
+  it('returns a recipe by id', async() => {
     const recipe = await Recipe.insert({
       name: 'cookies',
       directions: [
