@@ -139,4 +139,29 @@ describe('log routes', () => {
         expect(res.body).toEqual({ ...updatedLog, id: '1' });
       });
   });
+
+  it('deletes a log by id', async() => {
+
+    const recipe = await Recipe.insert({
+      name: 'cookies',
+      directions: [
+        'preheat oven to 375',
+        'mix ingredients',
+        'put dough on cookie sheet',
+        'bake for 10 minutes'
+      ]
+    });
+
+    const log = await Log.insert({
+      dateOfEvent: '12/24/20',
+      notes: 'here are some notes',
+      rating: '10/10',
+      recipeId: recipe.id
+    });
+
+    const res = await request(app)
+      .delete(`/api/v1/logs/${log.id}`);
+
+    expect(res.body).toEqual(log);
+  });
 });
