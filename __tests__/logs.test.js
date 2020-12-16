@@ -6,16 +6,12 @@ const Log = require('../lib/models/log');
 const Recipe = require('../lib/models/recipe');
 
 describe('log routes', () => {
-  beforeEach(() => {
-    return pool.query(fs.readFileSync('./sql/setup.sql', 'utf-8'));
-  });
-    
-  afterAll(() => {
-    return pool.end();
-  });
+  let recipe;
 
-  it('creates a log', async() => {
-    const recipe = await Recipe.insert({
+  beforeEach(async() => {
+    await pool.query(fs.readFileSync('./sql/setup.sql', 'utf-8'));
+
+    recipe = await Recipe.insert({
       name: 'cookies',
       directions: [
         'preheat oven to 375',
@@ -24,6 +20,13 @@ describe('log routes', () => {
         'bake for 10 minutes'
       ]
     });
+  });
+    
+  afterAll(() => {
+    return pool.end();
+  });
+
+  it('creates a log', async() => {
 
     const log = await Log.insert({
       dateOfEvent: '12/24/20',
@@ -41,15 +44,6 @@ describe('log routes', () => {
   });
 
   it('returns all logs', async() => {
-    const recipe = await Recipe.insert({
-      name: 'cookies',
-      directions: [
-        'preheat oven to 375',
-        'mix ingredients',
-        'put dough on cookie sheet',
-        'bake for 10 minutes'
-      ]
-    });
 
     const logs = await Promise.all([
       {
@@ -83,16 +77,6 @@ describe('log routes', () => {
 
   it('returns a log by id', async() => {
 
-    const recipe = await Recipe.insert({
-      name: 'cookies',
-      directions: [
-        'preheat oven to 375',
-        'mix ingredients',
-        'put dough on cookie sheet',
-        'bake for 10 minutes'
-      ]
-    });
-
     const log = await Log.insert({
       dateOfEvent: '12/24/20',
       notes: 'here are some notes',
@@ -107,16 +91,6 @@ describe('log routes', () => {
   });
   
   it('updates a log by id', async() => {
-
-    const recipe = await Recipe.insert({
-      name: 'cookies',
-      directions: [
-        'preheat oven to 375',
-        'mix ingredients',
-        'put dough on cookie sheet',
-        'bake for 10 minutes'
-      ]
-    });
 
     const log = await Log.insert({
       dateOfEvent: '12/24/20',
@@ -141,16 +115,6 @@ describe('log routes', () => {
   });
 
   it('deletes a log by id', async() => {
-
-    const recipe = await Recipe.insert({
-      name: 'cookies',
-      directions: [
-        'preheat oven to 375',
-        'mix ingredients',
-        'put dough on cookie sheet',
-        'bake for 10 minutes'
-      ]
-    });
 
     const log = await Log.insert({
       dateOfEvent: '12/24/20',
