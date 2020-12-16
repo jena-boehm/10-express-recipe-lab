@@ -6,7 +6,7 @@ const Recipe = require('../lib/models/recipe');
 
 describe('recipe-lab routes', () => {
   beforeEach(() => {
-    return pool.query(fs.readFileSync('./SQL/setup.sql', 'utf-8'));
+    return pool.query(fs.readFileSync('./sql/setup.sql', 'utf-8'));
   });
 
   afterAll(() => {
